@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/location.html</title>
+<script>
+window.addEventListener("load", function(){
+  var btObj = document.querySelector("button");
+  btObj.addEventListener("click", function(){
+	  window.setTimeout(function(){
+		  location.href="http://www.google.com";
+	  },  1000*5);
+  });
+});
+</script>
+</head>
+<body>
+<button>주소이동</button>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/calculator.html</title>
+<script>
+//dom트리가 완성될때까지 기다린다. load이벤트감시
+window.addEventListener("load", function(){
+	//dom에서 button객체들 찾기
+	var btArr = document.querySelectorAll("div.nums>button");
+	var inputObj = document.querySelector("input[type=text]");
+	for(var i=0; i<btArr.length; i++){
+		(function(j){
+		  var btNumObj = btArr[j];
+		  btNumObj.addEventListener("click", function(){
+			if(inputObj.value=='0' || inputObj.length==0){
+			  inputObj.value = btNumObj.innerHTML;			  
+			}else{
+			  inputObj.value += btNumObj.innerHTML;
+			}	
+		  });
+		})(i);		
+	}
+});
+</script>
+</head>
+<body>
+<input type="text"><br>
+<div class="nums">
+ <button>1</button> <button>2</button> <button>3</button> <br>
+ <button>4</button><button>5</button><button>6</button> <br>
+ <button>7</button> <button>8</button> <button>9</button> <br>
+ <button>0</button>
+</div>
+
+<button id="plus">+</button>&nbsp;&nbsp;<button id="minus">-</button>&nbsp;&nbsp;
+<button id="equal">=</button>&nbsp;&nbsp;
+<button id="clear">CLEAR</button>
+</body>
+</html>

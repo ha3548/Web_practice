@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>calculator.html</title>
+<script>
+	var plus = function() {
+		var divObj = document.querySelector("div");
+		var a = document.querySelector("#a");
+		var b = document.querySelector("#b");
+		
+		//ex) divObj.innerHTML = 계산결과값;
+		//parseInt : 문자열을 수로 바꾸는 함수
+		divObj.innerHTML = parseInt(a.value) + parseInt(b.value);
+		//div
+	};
+
+	var minus = function() {
+		var divObj = document.querySelector("div");
+		var a = document.querySelector("#a");
+		var b = document.querySelector("#b");
+
+		divObj.innerHTML = parseInt(a.value) - parseInt(b.value);
+	};
+	
+	//dom트리가 완성될때까지 기다린다. load이벤트감시
+	window.addEventListener("load", function(){
+		
+	//id속성값이 plus인 button객체를 DOM에서 찾기
+	var plusObj = document.querySelector("#plus");
+	var minusObj = document.querySelector("#minus");
+	
+	//plus객체에서 클릭이벤트가 감시
+	//클릭되면 div객체에 계산결과를 출력한다
+	plusObj.addEventListener("click", plus);
+	minusObj.addEventListener("click", minus);
+	
+});
+
+</script>
+</head>
+<body>
+<input type="number" id="a" value=0><br>
+<input type="number" id="b" value=0><br>
+<button id="plus">+</button>
+<button id="minus">-</button>
+<div>
+결과
+</div>
+</body>
+</html>

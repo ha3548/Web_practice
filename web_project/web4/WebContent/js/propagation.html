@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+//기본이벤트핸들러
+//이벤트전달
+window.addEventListener("load", function(){
+	
+	var aObj = document.querySelector("div>a");
+	aObj.addEventListener("click", function(e){
+		e.preventDefault(); //기본이벤트핸들러 막기
+		e.stopPropagation(); //상위이벤트(divObj)로 전달 중지
+	});
+	
+	var divObj = document.querySelector("div");
+	divObj.addEventListener("click", function(){
+		//this = divObj, 이벤트가 발생한 객체를 말함
+		this.style.width='500px';
+		this.style.backgroundColor="pink"
+	});
+	
+});
+</script>
+</head>
+<body>
+<div style="width:300px; background-color: lightgray;">
+	<a href="http://www.naver.com" style="border: solid; border-color: purple;">네이버</a>
+</div>
+</body>
+</html>

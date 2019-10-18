@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/propagation.html</title>
+<script>
+//기본 이벤트핸들러
+//이벤트 전달 : 하위->상위
+window.addEventListener("load", function(){
+	var aObj = document.querySelector("div>a");
+	aObj.addEventListener("click", function(event){
+		event.preventDefault(); //기본이벤트핸들러 막기
+		event.stopPropagation(); //이벤트전달 중지
+	});
+	
+	var divObj = document.querySelector("div");
+	divObj.addEventListener("click", function(){
+		//this : 이벤트가 발생된 객체, divObj객체를 말함
+		this.style.width='500px';
+	    this.style.backgroundColor = "pink";
+	});
+	
+	var formObj = document.querySelector("form");
+	var submitObj = document.querySelector("input[type=submit]");
+	formObj.addEventListener("submit", function(event){
+		alert("form의 submit이벤트가 발생했습니다!");
+		//기본이벤트핸들러가 작동됨
+		//             일 : action속성값에 해당 URL로 데이터 전송
+		event.preventDefault();
+	});
+	
+	submitObj.addEventListener("click",function(event){
+		alert("submit버튼이 클릭됨!"); 
+		//기본이벤트핸들러가 작동됨
+		//             일 : form객체의 submit이벤트를 강제발생시킨다
+		//event.preventDefault();
+	});
+});
+</script>
+</head>
+<body>
+<form action="http://localhost:8080">
+  <input type="text" name="t" value="abc"><br>
+  <input type="password" name="p"><br>
+  <input type="checkbox" name="c" value="c1">ONE&nbsp;&nbsp;
+  <input type="checkbox" name="c" value="c2">TWO<br>
+  <input type="submit" value="전송">
+</form>
+
+<div style="width:300px;background-color:yellow;">
+  <a href="http://www.naver.com" style="border:1px solid;">네이버</a>
+</div>
+</body>
+</html>

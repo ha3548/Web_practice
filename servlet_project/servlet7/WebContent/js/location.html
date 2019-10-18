@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>location.html</title>
+<script>
+window.addEventListener("load", function(){
+
+	var btObj1 = document.querySelector("button:nth-child(1)");
+	btObj1.addEventListener("click", function(){
+		setTimeout(function(){
+			location.href="http://www.google.com";
+		}, 1000*3);
+		
+		var divObj = document.querySelector("div");
+			divObj.innerHTML = "n초";
+		
+	});
+	
+	var btObj2 = document.querySelector("button:nth-child(2)");
+	btObj2.addEventListener("click", function(){
+		history.go(-1);
+	});
+	
+	var btObj3 = document.querySelector("button:nth-child(3)");
+	btObj3.addEventListener("click", function(){
+		history.go(1);
+	});	
+		
+});
+</script>
+</head>
+<body>
+<button>페이지이동</button>
+<button>이전페이지<br>[뒤로가기]</button>
+<button>다음페이지<br>[앞으로가기]</button>
+<div>이동시간</div>
+</body>
+</html>

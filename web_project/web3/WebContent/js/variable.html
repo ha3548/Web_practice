@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>variable.html</title>
+
+<script>
+	var a;
+	a=1;
+	b=2;
+	
+	console.log(a+","+b);
+	console.log(window.a+","+window.b);
+	// window객체의 변수를 선언하는 것이 default다!
+	
+	var c = function(){
+		var lv=3;
+		d=4;
+		console.log("in function: a+b = "+(a+b));//var -> 동적메모리(scope영역)에 할당 -> 함수가 끝나면 없어짐
+		console.log("in function: d = "+d);//window 객체에 선언 -> 밖에서 할당됨
+		console.log("in function: "+lv);//3
+		var e = function() {
+			var lv2=5;
+			f=6;
+			console.log("in inner function: lv+lv2" + (lv+lv2));//8
+		};
+	
+		e();
+		console.log("in function: f="+f);//6
+	};
+	
+	c();//함수로 호출
+	
+	//concole.log("out function: a+b = "+(a+b));
+	console.log("out function: d = "+d);
+	console.log("out function: f = "+f);
+	//concole.log("out function: "+lv); // lv is not defined.. ERROR!
+	
+</script>
+
+
+</head>
+<body>
+
+</body>
+</html>

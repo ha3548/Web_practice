@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax.html</title>
+<style>
+#result1, #result2,#result3,#result4, #result5{
+border: 1px solid;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$("#bt1").click(function(){
+		$.ajax({
+			url:'a.jsp',
+			method: 'GET',
+			success: function(jsonObj){
+				$("#result1").empty().html(jsonObj.msg);
+			}
+		});
+	});
+	
+	$("#bt2").click(function(){
+		var url = 'http://192.168.30.102:8888/ajaxtest/b.jsp';
+		$.ajax({url:url
+			,method:'get'
+			,success:function(jsonObj){
+				$("#result2").empty().html(jsonObj.msg);	
+			}
+		});
+	});
+	$("#bt3").click(function(){
+		var url = 'http://192.168.30.102:8888/ajaxtest/c.jsp';
+		$.ajax({url:url
+			,method:'get'
+			,success:function(jsonObj){
+				$("#result3").empty().html(jsonObj.msg);	
+			}
+		});
+	});
+	$("#bt4").click(function(){
+		var url = 'http://192.168.30.102:8888/ajaxtest/d.jsp';
+		$.ajax({
+			 url:url
+			,method:'get'
+			,dataType:'jsonp'
+			,jsonpCallback:'myCallback'	//d.jsp?callback=myCallback
+			,success:function(jsonObj){
+				$("#result4").empty().html(jsonObj.msg);	
+			}
+		});
+	});
+	$("#bt5").click(function(){
+		var url = 'proxy';
+		$.ajax({
+			 url:url
+			 ,data:"getURL=http://192.168.30.102:8888/ajaxtest/e.jsp"
+			 ,success:function(jsonObj){
+				 $("#result5").empty().html(jsonObj.msg);	
+			 }
+		});
+	});
+		
+		/* var url = 'https://www.koreaexim.go.kr/site/program/financial/exchangeJSON';
+		var data = {"authkey":"hOFbvba2r1qVqHlK54zpNYNlWIokOwEg"
+				    ,"searchdate":"20190821"
+				    ,"data":"AP01"
+				    }; */
+		/* var url = 'http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData'; */
+		/* var data = {"ServiceKey":"GE9Cle29UU3dprW%2FmzYZSpNjzzQDaz9ypqrFkMBunYb8WJGcW0Ea1pQJJZgPlzlV5kAISPmpMxvosdVHh9aH9Q%3D%3D"
+				   ,"base_date":"20190820"
+				   ,"base_time":"0500"
+				   , "nx":"60"
+				   , "ny":"127"
+				   , "_type":"json"}; */
+		
+	   
+	
+
+	// $("#bt3").click(function(){
+// 		var xhr = new XMLHttpRequest();
+// 		var url = 'http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData'; /*URL*/
+// 		var queryParams = '?' + encodeURIComponent('ServiceKey') + '='+'GE9Cle29UU3dprW%2FmzYZSpNjzzQDaz9ypqrFkMBunYb8WJGcW0Ea1pQJJZgPlzlV5kAISPmpMxvosdVHh9aH9Q%3D%3D'; /*Service Key*/
+		 
+// 		queryParams += '&' + encodeURIComponent('base_date') + '=' + encodeURIComponent('20190820'); /*‘15년 12월 1일발표*/
+// 		queryParams += '&' + encodeURIComponent('base_time') + '=' + encodeURIComponent('0500'); /*05시 발표 * 기술문서 참조*/
+// 		queryParams += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent('60'); /*예보지점의 X 좌표값*/
+// 		queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent('127'); /*예보지점의 Y 좌표값*/
+// 		queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /*한 페이지 결과 수*/
+// 		queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /*페이지 번호*/
+// 		queryParams += '&' + encodeURIComponent('_type') + '=' + encodeURIComponent('json'); /*xml(기본값), json*/
+// 		xhr.open('GET', url + queryParams);
+// 		xhr.onreadystatechange = function () {
+// 		    if (this.readyState == 4){
+		    	
+		    
+// 		        	alert('Status: '+this.status+' Headers: '+JSON.stringify(this.getAllResponseHeaders())+' Body: '+this.responseText);
+		    
+// 		    }
+// 		};
+
+// 		xhr.send('');
+// 	}); 
+});
+</script>
+</head>
+<body>
+<p>
+  <form action="a.jsp"><button>일반요청</button></form>
+</p>
+
+<p>
+  <button id="bt1">ajax로 동일도메인의 a.jsp 요청</button>
+  <div id="result1"></div>
+</p>
+
+<p>  
+  AJAX로 다른도메인의 자원을 요청하면 SameOriginPolicy(동일근원정책)에 의해 요청이 거부된다.<br>
+  이런 정책에 의해 생긴 문제를 CORS(Cross Origin Resource Sharing)라고 한다.<br>
+  <button id="bt2">ajax로 다른도메인의 b.jsp 요청<br>
+                      - ERROR발생!</button>
+  <div id="result2"></div>
+</p>
+<p>
+  <button id="bt3">ajax로 다른도메인의 c.jsp 요청<br>
+                      - c.jsp가 응답헤더에Access-Control-Allow-Origin설정해서 해결 </button>
+  <div id="result3"></div>
+</p>
+
+<p>
+  <dl>
+    <dt>jsonp(JSON with Padding)란</dt> 
+       <dd>AJAX요청을 일반요청인 것 처럼 바꾸는 작업
+       url뒤에 callback파라메터를 붙이게 된다!</dd>
+       <dd>HTML의 script 요소로부터 요청되는 호출에는 보안상 정책이 적용되지 않는다는 점을 이용한 우회 방법</dd>
+  </dl>   
+  <button id="bt4">ajax로 다른도메인의 d.jsp 요청<br>
+                     -jsonp형식으로 요청하고 응답</button>
+  <div id="result4"></div>
+</p>
+
+<p>
+<button id="bt5">ajax로 동일도메인의 서블릿요청<br>
+                    - 서블릿에서 URL api로 다른도메인의 e.jsp 요청</button>
+<div id="result5"></div>
+</p>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script>
+//window.addEventListener("load",function(){
+//jQuery(document).ready(function(){	
+//$(document).ready(function(){
+$(function(){
+	$("button[type=button]").click(function(){
+		//alert("가입버튼이 클릭되었습니다");
+		//menu중 가입메뉴객체를 찾기
+		var $menuArr = $("header > nav > ul > li > a");
+		for(var i=0; i<$menuArr.length; i++){
+			var aObj = $menuArr[i];
+			if($(aObj).attr('href') == 'join.html'){
+				//alert($(aObj).html()); //가입
+				//click이벤트 강제발생시키기
+				$(aObj).trigger('click');
+				break;
+			}
+		}
+	});
+	//$("button[type=submit]").click(function(){ //1	
+	//	alert("submit버튼에서 click이벤트 발생");
+		/* $("form").attr('action', '../a.jsp');
+		$("form").submit(); */
+		//return false;
+		//기본이벤트 핸들러가 할 일 : form의 submit이벤트를 강제 발생시킨다.
+	//});	
+	$("form").submit(function(){ //2
+		alert("form에서 submit이벤트 발생");
+	    /* $("form").attr('method', 'post'); */
+		//$("form").attr('action', '../first');   
+	    //기본이벤트 핸들러가 할 일 : form의 action속성값에 해당하는 URL을 요청한다
+                           //action속성값이 없으면 지금사용중인 URL을 요청한다
+        $.ajax({
+          url:	'../login',
+          method : 'post',
+          data: /*'id='+ $("input[name=id]").val() + "&" +
+                'pwd=' + $("input[name=pwd]").val(),*/
+                $('form').serialize(),
+          success: function(data){
+        	  var jsonObj = JSON.parse(data);
+        	  var msg = jsonObj.id + "님 로그인 ";
+              if(jsonObj.status == 1){
+            	  msg += "성공";
+            	  alert(msg);
+            	  location.href="layout.jsp";
+              }else {
+            	  msg += "실패";
+            	  alert(msg);
+              }
+             
+        	  
+          }
+        
+        });
+        return false;                           
+	});
+	
+});
+</script>
+</head>
+<body>
+<form>
+ID : <input type="text" name="id" placeholder="아이디를 입력하세요" 
+            required><br>
+비밀번호:<input type="password" name="pwd" placeholder="비밀번호를 입력하세요"
+            required><br>
+            
+<input type="checkbox" name="c" value="1">ONE&nbsp;&nbsp;
+<input type="checkbox" name="c" value="2">TWO&nbsp;&nbsp;
+<input type="checkbox" name="c" value="3">THREE<br>            
+<button type="submit">로그인</button>
+<button type="button">가입</button>
+</form>
+</body>
+</html>

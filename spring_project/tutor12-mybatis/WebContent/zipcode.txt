@@ -1,0 +1,78 @@
+
+1. https://www.epost.go.kr/search/zipcode/areacdAddressDown.jsp에서 우편번호파일 다운로드
+2. 
+CREATE TABLE post(
+zipcode varchar2(5),
+sido varchar2(21),
+sidoe varchar2(40),
+sigungu varchar2(20),
+sigungue varchar2(40),
+eupmyun varchar2(20),
+eupmyune varchar2(40),
+dorocode varchar2(12),  --도로명코드
+doro varchar2(80),  --도로명
+doroe varchar2(80),
+jiha varchar2(1),
+building1 varchar2(5), --건물번호 본번
+building2 varchar2(5), --건물번호 부번
+buildingno varchar2(25),  --건물관리번호
+daryang varchar2(40),
+building varchar2(200), --시군구용건물명
+dongcode varchar2(10),
+dong varchar2(20), --법정동명
+ri varchar2(20),
+dongadmin varchar2(40),
+san varchar2(1),
+zibun1 varchar2(4),
+zibunserial varchar2(2),
+zibun2 varchar2(4),
+zipoldcode varchar2(6),
+zipcodeserial varchar2(3));
+
+3.sql developer에서 1)데이터를 2)테이블에 추가
+
+
+4. SQL검색
+--주소정보
+--도로명 주소: 시도, 시군구, 읍면, 도로명, 건물번호1-건물번호2, (동 또는 리, 건물명) 
+--지번 주소 :  시도, 시군구, 읍면, 동 또는 리, 지번1-지번2, (건물명)
+
+SELECT zipcode,  
+sido||' ' 
+|| sigungu ||NVL2(sigungu,' ', '')
+|| eupmyun ||NVL2(eupmyun,' ', '')
+|| doro ||' ' 
+|| building1
+|| DECODE(building2,'0', '', '-'||building2) ||' ' 
+|| '('|| dong || ri || DECODE(building, '', '', ',' ||building) ||')'
+||chr(13)||chr(10) 
+|| sido ||' ' 
+|| sigungu ||NVL2(sigungu,' ', '')
+|| eupmyun ||NVL2(eupmyun,' ', '')
+|| dong || ri ||' ' ||  zibun1 || DECODE(zibun2, '0', '',  '-'|| zibun2)    || DECODE(building, '', '', ' (' ||building ||')')       
+FROM post
+WHERE (doro || ' ' || building1 || DECODE(building2,'0', '', '-'||building2)) = '세종로 2511';
+
+SELECT zipcode,  
+sido||' ' 
+|| sigungu ||NVL2(sigungu,' ', '')
+|| eupmyun ||NVL2(eupmyun,' ', '')
+|| doro ||' ' 
+|| building1
+|| DECODE(building2,'0', '', '-'||building2) ||' ' 
+|| '('|| dong || ri || DECODE(building, '', '', ',' ||building) ||')'
+||chr(13)||chr(10) 
+|| sido ||' ' 
+|| sigungu ||NVL2(sigungu,' ', '')
+|| eupmyun ||NVL2(eupmyun,' ', '')
+|| dong || ri ||' ' ||  zibun1 || DECODE(zibun2, '0', '',  '-'|| zibun2)    || DECODE(building, '', '', ' (' ||building ||')')       
+FROM post
+WHERE (doro || ' ' || building1 || DECODE(building2,'0', '', '-'||building2)) LIKE '%도움5로%';
+
+
+--'도움5로 19'
+--'금천2길 27-17'
+
+
+
+

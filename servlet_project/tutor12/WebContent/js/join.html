@@ -1,0 +1,307 @@
+<style>
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Nanum Gothic",sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #000;
+    background-color: #fff;
+    letter-spacing: -0.5px;
+}
+.mb-15 {
+    margin-bottom: 15px !important;
+}
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: table;
+}
+h6 {
+    font-size: 18px;
+    letter-spacing: -1px;
+    line-height: 24px;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: inherit;
+    font-weight: 400;
+    color: inherit;
+}
+.mb-0 {
+    margin-bottom: 0px !important;
+}
+
+.mt-0 {
+    margin-top: 0px !important;
+}
+.pull-left {
+    float: left !important;
+}
+.pull-right {
+    float: right !important;
+}
+.text-primary {
+    color: #2BC63E;
+    font-weight: bold;
+}
+
+.form-group-with-btn {
+    padding-right: 110px;
+        position: relative;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 44px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #000;
+    letter-spacing: -0.5px;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+.btn-primary.btn-line {
+    color: #2BC63E;
+    background-color: #fff;
+    border-color: #2bc63e;
+}
+.btn-primary.btn-line:active:hover, .btn-primary.btn-line:active:focus, .btn-primary.btn-line:active.focus, .btn-primary.btn-line.active:hover, .btn-primary.btn-line.active:focus, .btn-primary.btn-line.active.focus, .open>.btn-primary.btn-line.dropdown-toggle:hover, .open>.btn-primary.btn-line.dropdown-toggle:focus, .open>.btn-primary.btn-line.dropdown-toggle.focus {
+    color: #229c31;
+    background-color: #fff;
+    border-color: #229c31;
+}
+.btn-primary.btn-line:active, .btn-primary.btn-line.active, .open>.btn-primary.btn-line.dropdown-toggle {
+    background-image: none;
+}
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    min-width: 180px;
+    height: 44px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 0px 18px;
+    font-size: 14px;
+    line-height: 42px;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.form-group-with-btn>.btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+}    
+.bold {
+    font-weight: 700 !important;
+}
+.btn.btn-small {
+    min-width: 100px;
+}
+
+input[type=submit], #divSearchZip {
+  display: none;
+}
+
+/*  우편번호 창  */
+#divSearchZip{
+    padding : 8px;
+    width:300px; height:300px; 
+    position: absolute; 
+    top:100px; 
+    left:150px;
+    border: 1px solid transparent;
+    background-color: 	#E6E6FA;  
+}
+#divSearchZip .search_pop input[type=text] {
+    width: 80%;
+    height: 36px;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px;
+    margin: 0px;
+    border: 2px solid #ee2e24;
+    box-sizing: border-box;
+    float: left;
+}
+#divSearchZip .search_pop button {
+    width: 20%;
+    height: 36px;
+    background-color: #ee2e24;
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    line-height: 32px;
+    display: block;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    border: 2px solid #ee2e24;
+    box-sizing: border-box;
+    float: left;
+}
+#divSearchZip table {
+    width: 80%;
+    padding: 0px;
+    margin: 10px 0px 20px 0px;
+    border-bottom: 2px solid #888;
+    color: #707070; 
+}
+th, td {
+    vertical-align: middle;
+} 
+#divSearchZip > div{
+    clear:both;
+    overflow: auto;
+    height:80%;
+}
+</style>
+<script>
+window.addEventListener("load", function(){
+	//id입력란에 focus이벤트감시, 할 일: 가입완료버튼 화면에서 사라진다
+	var idObj = document.querySelector("input[name=id]");
+	var submitObj = document.querySelector("input[type=submit]");
+	idObj.addEventListener("focus", function(){
+		submitObj.style.display = 'none';
+	});	
+	var dupchkObj =  document.querySelector("#dupchk");
+	dupchkObj.addEventListener("click", function(){
+		if(idObj.value == 'test'){
+			alert("이미 사용중인 ID입니다.");
+		}else if(idObj.value.trim().length == 0){
+			idObj.focus();
+		}else{
+			submitObj.style.display = 'block';
+		}		
+	});	
+	
+	//우편번호 검색버튼
+	var searchZipObj = document.querySelector("#searchZip");
+	searchZipObj.addEventListener("click",function(){
+		document.querySelector("#divSearchZip").style.display = 'block';
+	});	
+	
+	//우편번호창에서 행(tr) 클릭이벤트 감시 할일: 본창의 우편번호, 기본주소에 값 대입,
+	                                   //우편번호창 사라진다.
+	var trObjArr = document.querySelectorAll(
+			"#divSearchZip>div>table tr:not(:first-child)");
+	for(var i=0; i<trObjArr.length; i++){
+	  (function(j){
+		var trObj = trObjArr[j];
+		trObj.addEventListener("click",function(){
+		  document.querySelector("input[name=zipcode]").value = trObj.children[0].innerHTML; //trObj.children[0]tr의 첫번째자식:<td>30114</td>
+		  document.querySelector("input[name=addr1]").value = trObj.children[1].innerHTML;   //trObj.children[1]tr의 두번째자식:<td>세종특별시~~~</td>
+		  document.querySelector("#divSearchZip").style.display = 'none';
+		});
+	  })(i);
+	}
+});
+</script>
+<form>
+<div style="height:100%; width:50%;border:1px solid;">  
+  <div class="clearfix mb-15">
+	<h6 class="mt-0 mb-0 pull-left">아이디 입력</h6>
+	<div class="pull-right input_count" data-target="input_id" data-max="15">
+		4자 이상의 영문 소문자 기준 <strong class="text-primary count">0</strong> / 15자
+	</div>	
+  </div>
+  <div class="form-group form-group-with-btn mb-30">
+    <input type="text"  name="id" class="form-control input_id" maxlength="15" placeholder="아이디를 입력하세요.">
+    <button type="button" id="dupchk"  class="btn btn-primary btn-line btn-small bold">중복확인</button>
+  </div>
+   <div class="clearfix mb-15">
+		<h6 class="mt-0 mb-0 pull-left">비밀번호</h6>
+		<div class="pull-right">
+			영문소문자, 숫자 포함 <strong class="text-primary">6</strong>자리 – <strong class="text-primary">12</strong>자리
+		</div>
+	</div>
+  <div class="form-group mb-30">
+	<input type="password" name="login_pwd" id="login_pwd" class="form-control" placeholder="사용할 비밀번호를 입력하세요." maxlength="12">
+	<!-- <button type="button"  class="btn btn-primary btn-line btn-small bold">중복확인</butto\n> -->
+  </div>
+							
+  <div class="clearfix mb-15">
+	<h6 class="mt-0 mb-0 pull-left">비밀번호 확인</h6>
+  </div>
+  <div class="form-group mb-30">
+	<input type="password" name="re_login_pwd" id="re_login_pwd" class="form-control" placeholder="사용할 비밀번호를 입력하세요." maxlength="12">
+  </div>
+  
+  <div class="clearfix mb-15">
+	<h6 class="mt-0 mb-0 pull-left">우편번호</h6>
+  </div>
+ 
+  <div class="form-group form-group-with-btn mb-30">
+    <input type="text"  readonly name="zipcode" class="form-control input_zipcode" maxlength="5">
+    <button type="button"
+            id="searchZip"  
+            class="btn btn-primary btn-line btn-small bold">
+            우편번호 검색</button>
+  </div>
+  <div class="form-group mb-30">
+	<input type="text" readonly   name="addr1" class="form-control" >	
+  </div>
+  <div class="form-group mb-30" >
+    <input type="text" name="addr2" class="form-control">
+  </div>
+  
+  
+  
+  <div class="form-group mb-30" style="margin-top: 10px;margin-bottom: 10px;">
+	<input type="reset"   value="취소">
+	<input type="submit"  value="가입완료" >
+  </div>
+  
+</div>					
+</form>
+
+<!-- 우편번호 검색용 div -->
+<div id="divSearchZip" >
+ <form>
+   <div class="search_pop">
+     <input type="text" placeholder="도로명 + 건물번호">
+     <button>검색</button>
+   </div>
+ </form>  
+ <div>
+   <table><!-- 크롬브라우저는 tbody태그를 끼워넣음 --> 
+       <tr><th>우편번호</th><th>주소</th></tr>
+       <tr><td>30114</td><td>세종특별자치시 도움5로 19 (어진동, 우정사업본부)</td></tr>
+       <tr><td>30115</td><td>테스트</td></tr>     
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>           
+       <tr><td>30115</td><td>테스트</td></tr>  
+   </table>
+ </div>   
+</div>

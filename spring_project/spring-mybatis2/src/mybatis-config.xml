@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <!-- xml파일 요소들의 순서 -->
+<configuration>
+  <typeAliases>
+   <typeAlias type="com.my.vo.Customer" alias="Customer"/>
+   <typeAlias type="com.my.vo.OrderInfo" alias="OrderInfo"/>
+   <typeAlias type="com.my.vo.OrderLine" alias="OrderLine"/>
+  </typeAliases>
+  <!-- datasource주입이 안될경우 작용 -->
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="C##ORA_USER"/>
+        <property name="password" value="bong"/>
+        <!-- <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/> -->
+      </dataSource>
+    </environment>
+  </environments>
+   <mappers>
+    <mapper resource="customerMapper.xml"/>
+    <mapper resource="orderMapper.xml"/>
+  </mappers>
+  <!-- resource의 xml을 다르게 만들어줘야한다 -->
+</configuration>

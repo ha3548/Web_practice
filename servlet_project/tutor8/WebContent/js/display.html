@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/display.html</title>
+<style>
+div{
+background-color: #F7F7F7;
+width:80%;
+border:1px solid;
+padding:20px;
+}
+div>select{
+cursor: pointer;
+margin: 10px;
+}
+button{
+ color: #fff;
+ background-color: #1553A3;
+ border: 1px solid transparent;
+ border-radius: 4px;
+}
+.icon-search{
+display: inline-block;
+width: 16px;
+height: 16px;
+background-image: url(../images/icon-search.png);
+background-size: 16px;
+background-repeat: no-repeat;
+vertical-align: middle;
+margin-top: -1px;
+}
+.mr-3 {
+margin-right: 3px !important;
+}
+input[type=checkbox] ~ div{
+display:none;
+}
+</style>
+<script>
+window.addEventListener("load", function(){
+	//dom에서 id속성값이 sido인 객체 찾기
+	var sidoObj = document.querySelector("#sido");
+	var gunguObj = document.querySelector("#gungu");
+	
+	//sido객체의 event종류: click, change
+	//sidoObj.addEventListener("click", function(){console.log("click");});
+	sidoObj.addEventListener("change", function(){
+		console.log(sidoObj.value);
+		/* var options = '';
+		switch(sidoObj.value){
+		case 's':
+			options = '<option>시/군/구 선택</option>';
+			options += '<option>강남구</option>';
+			options += '<option>강북구</option>';
+			options += '<option>강서구</option>';
+			options += '<option>강동구</option>';			
+			break;
+		case 'k':
+			options = '<option>시/군/구 선택</option>';
+			options += '<option>수원시</option>';
+			options += '<option>시흥시</option>';
+			options += '<option>안산시</option>';
+			break;
+		case '0':
+			options = '<option>시/군/구 선택</option>';
+		}
+		gunguObj.innerHTML = options; */
+		switch(sidoObj.value){
+		case 'j':
+			//var o1 = document.querySelector("#gungu>option");
+			//gunguObj.removeChild(o1); //1개의 option요소 제거
+			
+			//gungu에 child요소가 존재하면 반복수행
+			while(gunguObj.firstChild){ //gungu의 모든option요소제거
+				gunguObj.removeChild(gunguObj.firstChild);
+			}
+			
+			var o = document.createElement("option");
+			var t = document.createTextNode("서귀포시");
+			o.appendChild(t);
+			gunguObj.appendChild(o);
+			
+			o = document.createElement("option");
+			t = document.createTextNode("제주시");
+			o.appendChild(t);
+			gunguObj.appendChild(o);
+		}
+		
+	});
+	
+	//button객체찾기
+	var btObj = document.querySelector("button");
+	btObj.addEventListener("click", function(){
+		//시도값이 k이고, 군구값이 시흥시인 경우
+		//class속성값이 result인 div객체영역에 
+		//'그린웨이 자전거길'을 출력하시오
+		var divResultObj = document.querySelector(".result");
+		if(sidoObj.value == 'k' && gungu.value == '시흥시'){
+			divResultObj.innerHTML = '그린웨이 자전거길';
+		}
+	});
+	
+	var ckAllObj; //전체 checkbox
+	var ckArr = document.querySelectorAll("input[type=checkbox]");
+	
+	//1.'전체'checkbox찾기
+	for(var i=0; i<ckArr.length; i++){
+		var ckObj = ckArr[i];	
+		//console.log(ckObj);
+		//checkbox객체의 형제노드찾기
+		var sibling = ckObj.nextSibling;		
+		/* console.log(sibling); */
+		//형제노드인 span의 innerHTML값이 '전체'인 경우
+		if(sibling.innerHTML.trim() == '전체'){
+			ckAllObj = ckObj;
+			console.log(sibling);
+			break;
+		}
+		
+	}
+	
+
+	
+	//2.'전체'checkbox가 선택되면 나머지checkbox가 선택,
+	//                 해제되면                           해제
+	//ckAllObj가 click되었을때 이벤트 감시
+	//선택시 checked속성값이 true
+	//해제시 checked속성값이 false
+	//선택되면 나머지 checkbox들의 checked속성값을 true
+	//해제되면 나머지 checkbox들의  checked속성값을 false로 바꾼다!
+	ckAllObj.addEventListener("click", function(){
+		for(var i=0; i<ckArr.length; i++){
+			if(ckArr[i] != ckAllObj){
+				//ckArr[i].checked = ckAllObj.checked;
+				ckArr[i].click(); //클릭이벤트 강제발생시킨다
+			}
+		}
+	});
+	
+	//3. '거리', '난이도', '시간'이 선택되면 세부 조건이 보이고
+	//                          해제되면 세부 조건이 사라진다.
+	for(var i=0; i<ckArr.length; i++){
+		(function(j){
+		  var ckObj = ckArr[j];	
+		  if(ckObj != ckAllObj){			
+			ckObj.addEventListener("change", function(){		
+				console.log(ckObj.checked);
+				var sibling = ckObj.nextElementSibling.nextElementSibling;
+				if(ckObj.checked){
+					sibling.style.display = 'block';
+				}else{
+					sibling.style.display = 'none';
+				}
+			});
+		  }
+		})(i);
+	}
+});
+
+</script>
+</head>
+<body>
+<div>
+  <div>
+       지역 : 
+      <select id="sido">
+        <option value="0">도/시 선택</option>
+        <option value="s">서울</option>
+        <option value="k">경기</option>
+        <option value="j">제주</option>
+      </select>
+      <select id="gungu">
+        <option>시/군/구 선택</option>  
+      </select>
+  </div>
+  <div> 
+      조건:
+    <input type="checkbox"><span>  전체   </span> 
+    <hr>
+    <input type="checkbox"><span>거리</span>
+    <div>
+      <input type="radio">5km미만&nbsp;&nbsp;      
+      <input type="radio">5~10km&nbsp;&nbsp;
+      <input type="radio">10km초과
+    </div>
+     
+    <input type="checkbox"><span>난이도</span><br>
+    
+    <input type="checkbox"><span>시간</span><br>    
+  </div>
+
+<button>
+<i class="icon-search mr-3"  style="margin-right:10px;"></i>
+검색하기</button>
+</div>
+<div class="result">
+
+</div>
+
+
+
+
+</body>
+</html>

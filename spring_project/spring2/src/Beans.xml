@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<context:annotation-config/>
+	<!-- NoSuchBeanDefinitionException -->
+	<bean id="second" class="a.Second2"/>
+	
+	<!-- NoUniqueBeanDefinitionException: No qualifying bean of type 'a.Second' available -->
+<!--<bean id="second1" class="a.Second1"/>
+	<bean id="second2" class="a.Second2"/> -->
+	<!-- 해결방법 -->
+	<bean id="second1" class="a.Second1">
+		<qualifier value="s1"/>
+	</bean>
+	<bean id="second2" class="a.Second2">
+		<qualifier value="s2"/>
+	</bean>
+	
+	<bean id="first" class="a.First">
+	<!-- init-method="메소드이름" : 객체생성시 자동호출되는 메소드 설정-->
+		<property name="msg" value="금요일입니다.(XML)"/>
+	</bean>
+
+</beans>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Rock! Scissors! Paper!</title>
+<script>
+
+	var play = function() {
+		//alert("Clicked!");
+		
+		// 1) 컴퓨터의 랜덤값
+			var ranNum = Math.floor(Math.random()*3) + 1;
+			console.log(ranNum);
+			
+		// 2) 사용자의 입력값
+		// querySelectorAll(): 모든 input객체를 찾아->배열타입으로 반환
+		var arr = document.querySelectorAll("input");
+		
+		for(var i=0; i<arr.length; i++) {
+			var rObj = arr[i];
+			if(rObj.checked) {//radio버튼이 선택된 경우
+				console.log(rObj.value);
+				break;
+			}
+		}
+
+		// 3) 기계값, 사용자값, 승패출력
+		
+		if(ranNum==1) {
+			console.log("컴퓨터:가위");
+		} else if(ranNum==2) {
+			console.log("컴퓨터:바위");
+		} else {
+			console.log("컴퓨터:보");
+		}
+		
+		if(rObj.value==1) {
+			console.log("사용자:가위");
+		} else if(rObj.value==2) {
+			console.log("사용자:바위");
+		} else {
+			console.log("사용자:보");
+		}
+		
+		var result = (rObj.value-ranNum+2)%3;
+		
+		switch(result) {
+		case 0:
+			console.log("승");
+			break;
+		case 1:
+			console.log("패");
+			break;
+		case 2:
+			console.log("무승부");
+			break;
+		}
+	}
+
+	var init = function() {
+		//DOM Tree에 접근해서 input객체찾기
+		var inputObj = document.querySelector("input");
+		//객체의 value속성값 얻기
+		var value = inputObj.value;
+		console.log("첫번째 input 객체의 value속성값: "+value);
+		//dom에 접근해서 button 객체찾기
+		var buttonObj = document.querySelector("button");
+		console.log(buttonObj);
+		//버튼객체에서 click 이벤트가 발생할 것을 감지
+		// 1) 클릭되면 임의의 숫자를 발생하는 가위바위보값 과
+		// 2) 사용자가 입력해준 가위바위보값을 비교해서
+		// 3) 승패 출력
+		buttonObj.addEventListener("click", play);
+	}
+
+	window.addEventListener("load", init);
+</script>
+</head>
+<body style="background-color: #FBEFFB">
+   <input type="radio" name ="r" value="1">가위<br>
+   <input type="radio" name ="r" value="2">바위<br>
+   <input type="radio" name ="r" value="3">보<br>
+   <button>실행</button>
+</body>
+</html>

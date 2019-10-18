@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/first.html</title>
+<script>
+//alert("A");
+
+// 자료형 알아보기
+//alert(typeof(123));
+console.log(typeof(123)); // Number
+console.log(typeof('hello')); // "hello"와 같음, String
+console.log(typeof(true)); // Boolean
+console.log(typeof({})); // Object 객체
+console.log(typeof(function(){})); // function
+
+//변수 선언 - 선언시 자료형이 결정되지 않는다
+var v1; // 자료형 안써주고 변수 이름만 써줌
+v1 = 123; // 숫자형
+v1 = 'hello'; // 문자형으로 바뀜
+v1 = false; // boolean으로 바뀜
+// -> 대입되는 값에 따라 자료형이 결정
+v1 = {}; // 객체 대입
+v1 = function(){};
+console.log(typeof(v1)); // function 자료형으로 대입됨
+
+var v2;
+console.log(typeof(v2)); // undefind -> v2 자료형 결정 안해줌
+// -------------------
+// 연산자
+
+// 산술연산자
+console.log(1+2); // 3
+console.log(1/2); // 0.5 -> 정수 / 정수도 실수값 나옴
+console.log(5%3); // 2
+console.log(1/0); // Infinity
+
+// 비교연산자
+console.log(1>2); // false
+console.log(1==2); // false
+console.log(1!=2); // true
+
+// 논리연산자
+console.log(1>2 && 5%3 == 2); // false
+console.log(1>2 || 5%3 == 2); // true
+
+// 대입연산자
+var v3;
+v3 = 1+2;
+v3 += 3; // v3 = v3 + 3;
+console.log(v3); // 6
+
+
+
+// 단항연산자
+var v4;
+v4 = v3++; // v4에 v3 대입된 다음에 v3 ++ 됨
+console.log(v3 + "," + v4); // 7, 6
+
+// 삼항연산자
+var v5 = v4 > 6? true : false;
+console.log(v5); // fasle
+
+// -------------------
+// 자료형변환
+var num = 1;
+var str = '2';
+var bool = true;
+console.log(num+str); // '12' (+ 연산시 number가 String으로 자동 형변환)
+console.log(num-str); // -1 (- 연산시 String이 number로 자동 형변환)
+console.log(num+bool); // 2 (논리형은 산수연산 만났을 때 숫자타입으로 변환) 1 + 1 = 2
+console.log(str+bool); // 2true (논리형은 문자형 만났을때 문자형으로 변환)
+// 문자 > 숫자 > 논리형 순서
+
+var un; // undefind
+console.log(num+un); // NaN(Not a Number) -> undefind는 숫자형 만났을때 변환 X
+
+// -------------------
+// 조건문
+if(num%2 == 0){
+   console.log("짝수");
+} else{
+   console.log("홀수");
+}
+
+// 현재 날짜 얻기
+var now = new Date();
+console.log(now.getFullYear());
+
+var month = now.getMonth(); // 1월이 0
+console.log(month); 
+
+//Math.floor(month / 6);  // ex : month가 1인 경우(2월) -> month / 6은 0.xxx.. (소수점 이하 버림)
+//Math.ceil(month / 6); //                               1.0         (소수점 이하 올림)
+
+switch(Math.floor(month / 6)){
+case 0: console.log("상반기");
+      break;
+default: console.log("하반기");
+}
+
+// -------------------
+// 반복문
+// 정수로 강제형변환 : parseInt()
+//console.log(parseInt(Math.random()));
+
+// 가위바위보게임
+// 가위:1
+// 바위:2
+// 보:3
+
+/* for(var i = 0; i < 5; i++){
+var a = parseInt(Math.random()*3 +1); // 1.0이상 3.0 미만을 parseInt로 1이상 3미만으로 바꿈
+   switch(a){
+      case 1: console.log("가위"); break;
+      case 2: console.log("바위"); break;
+      case 3: console.log("보"); break;
+   }
+} */
+
+
+var i = 0;
+while(i<5){
+   var a = parseInt(Math.random()*3 +1); // 1.0이상 3.0 미만을 parseInt로 1이상 3미만으로 바꿈
+   switch(a){
+      case 1: console.log("가위"); break;
+      case 2: console.log("바위"); break;
+      case 3: console.log("보"); break;
+   }
+   i++;
+}
+
+
+
+</script>
+</head>
+
+<body>
+   <script>
+//alert("B");
+</script>
+
+   <button>클릭</button>
+
+   <script>
+//alert("C");
+</script>
+</body>
+</html>

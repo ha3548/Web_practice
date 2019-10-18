@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/history.html</title>
+<script>
+window.addEventListener("load", function(){
+  var btObj = document.querySelector("button");
+  btObj.addEventListener("click", function(){
+	 history.go(-1); //history.back();
+  });
+});
+</script>
+</head>
+<body>
+<button>이전페이지[뒤로가기]</button>
+</body>
+</html>

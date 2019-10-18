@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jq/ajax.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(function() {
+	$("#bt1").click(function() {
+		$.ajax({ //객체형태의 인자를 사용
+			url:'../a.jsp',
+			method:'GET',
+			success:function(data){ //정상응답시
+				//$("div").empty();
+				//$("div").html(data);
+				$("div").empty().html(data);
+			}
+		}); 
+	});
+	
+	$("#bt2").click(function() {
+		$.ajax({ //객체형태의 인자를 사용
+			url:'http://192.168.30.102:8080/web8/a.jsp',
+			method:'GET',
+			success:function(data){ //정상응답시
+				//$("div").empty();
+				//$("div").html(data);
+				$("div").empty().html(data);
+			}
+		}); 
+	});
+});
+</script>
+</head>
+<body>
+<button id="bt1">ajax 동일도메인 요청</button>
+<form action="../a.jsp"><button>일반요청</button></form>
+<!-- <button id="bt2">ajax 다른도메인 요청</button> -->
+<!-- blocked by CORS policy : 보안정책에 위배되어 실행X -->
+<div></div>
+<input type="text">
+</body>
+</html>

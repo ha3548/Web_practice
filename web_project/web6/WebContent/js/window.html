@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>window.html</title>
+<script>
+//DOM트리가 구성될때까지 기다린다 = window객체의 load이벤트 감시
+window.addEventListener("load", function(){
+	
+	var windowId;
+	var btObj1 = document.querySelector("button:nth-child(1)");//선택자
+	btObj1.addEventListener("click",function(){//새창띄우기
+		var url='http://localhost:8080';
+		var name='one';
+		var spec='width=500px, height=500px';
+		windowId = window.open(url,name,spec);
+	});
+	
+	var btObj2 = document.querySelector("button:nth-child(2)");//선택자
+	btObj2.addEventListener("click",function(){//새창닫기
+		windowId.close();
+	});
+	
+	var interverId;
+	var btObj3 = document.querySelector("button:nth-child(3)");
+	btObj3.addEventListener("click",function(){
+		var time=1000;//1초
+		interverId = setInterval(function(){//callback 함수
+			//console.log(new Date)
+			var now = new Date();
+			var y = now.getFullYear();
+			var m = now.getMonth()+1;
+			var d = now.getDate();
+			var dd = now.getDay();
+			var h = now.getHours();
+			var mi = now.getMinutes();
+			var ss = now.getSeconds();
+			var week = new Array('일','월','화','수','목','금','토');
+			
+			var divObj = document.querySelector("div");
+			//divObj.innerHTML = y +"년 " + m + "월 " + d + "일";
+			divObj.innerHTML = y + "년 " + m + "월 " + d + "일  (" + week[dd] + ") " + h + ":" + mi + ":" + ss;
+			
+		}, time);
+	});
+	
+	var btObj4 = document.querySelector("button:nth-child(4)");
+	btObj4.addEventListener("click", function(){
+		clearInterval(interverId);		
+	});
+	var btObj5 = document.querySelector("button:nth-child(5)");
+	btObj5.addEventListener("click", function(){
+		var time=1000*3; //3초
+		
+		setTimeout(function(){
+			alert("버튼 클릭 후 3초가 지났습니다.")
+		}, time);
+	});
+});
+//window객체는 자바스크립트의 최상위객체이므로, 생략가능
+</script>
+</head>
+<body>
+<button>새창띄우기</button><button>새창닫기</button>
+<button>타이머간격처리<br>(setInterval)</button><button>타이머간격중지</button>
+<button>타이머실행<br>(setTimeout)</button>
+<div>
+시간
+</div>
+</body>
+</html>

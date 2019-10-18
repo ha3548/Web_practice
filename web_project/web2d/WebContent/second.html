@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">  
+<title>Insert title here</title>
+
+<style>
+.cities {
+  background-color: black;
+  color: white;
+  margin: 20px;
+  padding: 20px;
+} 
+</style>
+
+</head>
+<body>
+
+<ul style="list-style-type:square;">
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ul>
+
+<ol>
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ol>
+
+<ul style="list-style-type:none; padding-left: 10px">
+  <li>Coffee</li>
+  <li>Tea</li>
+  <li>Milk</li>
+</ul>
+
+<dl>
+  <dt>Coffee</dt>
+  <dd>- black hot drink</dd>
+  <dt>Milk</dt>
+  <dd>- white cold drink</dd>
+</dl>
+
+<hr>
+
+<!--  block 요소: 영역/크기조절가능, 자동줄바꿈O
+ex)ul ol li h1~h6 p dl dt dd / table tr / div -->
+
+<div style="background-color: orange; width: 200px;
+			margin-top: 10px;
+			margin-right: 20px;
+			margin-bottom: 30px;
+			margin-left: 40px">
+	DIV1
+	
+</div>
+<div style="background-color: orange; width: 200px;
+			margin: 10px 20px;"> <!-- 시계방향으로 마진설정, 한칸식 띄어주기 -->
+	DIV2
+</div>
+
+<!--  inline 요소: 영역/크기자동설정(조절X), 자동줄바꿈X, 좌우margin 반영O, 상하margin 반영X
+ex) span -->
+
+<span style="background-color:yellow; width: 200px;
+			 margin: 10px 20px 30px 40px;"> <!-- 크기 직접설정 안됨 -->
+	SPAN1
+</span>
+<span style="background-color:yellow; width: 200px;">
+	SPAN2
+</span>
+
+<div style="background-color: lime; width: 200px;
+			margin: 10px 20px;
+			display:inline;">
+	display:inline
+</div>
+
+<div style="display: none;"> <!-- 화면에 나타나지 않음 -->
+	display:none
+</div><br>
+
+<!-- inline-block 요소: 영역(크기)조절가능, 자동줄바꿈X 
+ex) img input select textarea  -->
+<img src="images/w3schools.jpg"
+		  width="100" height="100">
+		  
+<img src="images/w3schools.jpg"
+		  width="100" height="100"
+		  style="display: block"> <!-- 줄바꿈O -->
+
+
+<form action="http://192.168.30.102:8080/web2d/second.jsp">
+	<input>
+	<input type="text" value="hello" name="t">
+	<input type="password" name="p"><br>
+	
+	<input type="checkbox" name="c" value="c1">ONE &nbsp; &nbsp;
+	<input type="checkbox" name="c" value="c2">TWO <br>
+	
+	<input type="radio" name="r" value="r1">ONE &nbsp; &nbsp;
+	<input type="radio" name="r" value="r2" checked>TWO <br>
+	
+	<input type="hidden" name="h" value="h1"> <br>
+	
+	<select name="s">
+		<option>A</option>
+		<option selected>B</option>
+	</select><br>
+	
+	<textarea rows="3" cols="10" name="ta">HELLO! WELCOME*^^*</textarea><br>
+	
+	<input type="submit" value="전송"><br>
+	<input type="button" value="클릭">
+
+</form>
+
+<div>
+	<h2>HTML5에 추가된 input type 속성들</h2>
+	<form>
+		<input type="search" value="검색..."><br>
+		<input type="number" value=1 min=1 max=10 step=0.5><br>
+		<input type="email" value="a@b.com"><br>
+		<input type="date"><br>
+		<input type="range"><br>
+		<input type="tel"><br>
+	</form>
+</div>
+
+<div>
+	<h2>HTML5에 추가된 input 속성들</h2>
+	<form>
+		<input readonly value="읽기전용"><br>
+		<input name="a" autocomplete="off"><br>
+		<input autofocus><br>
+		<input placeholder="힌트입니다"><br>
+		<input placeholder="반드시 입력하세요!" required><br>
+		<input type="submit" value="전송">
+	</form>
+</div>
+
+<div>
+	<h2>버튼들</h2>
+	<form>
+		<input><br>
+		<input type="submit" value="전송"><br>
+		<input type="button" value="클릭"><br>
+		<button>버튼1</button> <!-- form태그 안에있는 버튼은 submit과 같은효과 -->
+	</form>
+	<button>버튼2</button> <!-- form태그 밖에있는 버튼은 일반버튼역할 -->
+</div>
+
+<div class="cities">
+  <h2>London</h2>
+  <p>London is the capital of England.</p>
+</div>
+
+<div class="cities">
+  <h2>Paris</h2>
+  <p>Paris is the capital of France.</p>
+</div>
+
+<div class="cities">
+  <h2>Tokyo</h2>
+  <p>Tokyo is the capital of Japan.</p>
+</div>
+
+
+</body>
+</html>

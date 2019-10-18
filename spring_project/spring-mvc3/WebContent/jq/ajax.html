@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jq/ajax.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="jquery.ajax-cross-origin.min.js"></script>
+<script>
+$(function(){
+	$("#bt1").click(function(){
+		$.ajax({
+			url:'../a.jsp',
+			method: 'GET',
+			success: function(data){
+				$("div").empty().html(data);
+			}
+		});
+	});
+	/*
+	CORS(Cross Origin Resource Sharing)
+	Access to XMLHttpRequest at 'http://192.168.30.150:8080/web8/a.jsp' from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+	*/
+	$("#bt2").click(function(){
+		$.ajax({
+			crossOrigin : true,
+		    dataType : "json",
+			url:,
+			method: 'GET',
+			success: function(data){
+				$("div").empty().html(data);
+			}
+		});
+	});
+});
+</script>
+</head>
+<body>
+<button id="bt1">ajax 동일도메인 요청</button>
+<form action="../a.jsp"><button>일반요청</button></form>
+<button id="bt2">ajax로 다른도메인 요청</button>
+
+<div></div>
+<input type="text">
+</body>
+</html>

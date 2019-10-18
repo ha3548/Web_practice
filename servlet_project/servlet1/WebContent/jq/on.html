@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jq/pn.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+//window.addEventListener("load",function(){
+//jQuery(document).ready(function(){
+//$(document).ready(function(){
+$(function(){ //DOM트리가 완성되고 화면에 보여지기 직전에 ready실행
+	var $btObj = $("button");
+	$btObj.click(function(){
+		var $divObj = $("div");
+		var inner = '<p>단락-클릭해보세요!</p>';
+		//divObj.innerHTML = inner; //JavaScript문법
+		$divObj.html(inner);
+	});
+	
+	//DOM트리에서 p객체찾기 -> 작동X
+/*	$("p").click(function(){
+		//this.style.backgroundColor="yellow";
+		$(this).css("background-color","yellow");
+	});
+	
+	//.on(events [, selector] [, data], handler)
+	$("div").on("click", function(){
+		console.log("div에서 click되었음!")	
+	});
+*/	
+
+	//On함수: DOM트리에 없는 요소도 이벤트핸들러 미리등록 가능
+	//후손으로 추가될 p요소의 click이벤트핸들러
+	$("div").on("click", "p", function(){
+		console.log("p요소에서 click이 발생했을 때 할일")	
+		//this.style.backgroundColor="yellow";
+		$(this).css("background-color","yellow");
+	});
+	
+});
+</script>
+</head>
+<body>
+<button>클릭</button>
+<div></div>
+</body>
+</html>

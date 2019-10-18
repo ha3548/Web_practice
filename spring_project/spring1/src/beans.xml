@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- bean태그를 사용하면 새로운 객체를 생성하는 것 -->
+	<!-- class(java파일)만 봐서는 어떤 객체(실체)를 사용하는지 모르지만, XML파일 bean태그를 보면 알수있다 -->
+	<bean id="second" class="a.Second2"></bean>				<!-- Second second = new Second(); -->
+	<!-- setter메서드 주입 -->
+	<bean id="first-set" class="a.First">					<!-- First first = new First(); -->
+		<property name="num" value="77"></property>			<!-- first.setNum(99); -->
+		<!-- <property name="num">
+		  <value>77</value>
+		</property> -->
+		<property name="second" ref="second"></property>	<!-- first.setSecond(second); -->
+		<!-- <property name="second">
+		  <ref bean="second"/>
+		</property> -->
+	</bean>
+	<!-- 생성자 주입 -->
+	<bean id="first-con" class="a.First">
+		<constructor-arg name="num" value="88"/>
+		<constructor-arg name="flag" value="true"/>
+		<constructor-arg name="msg" value="hello"/>
+		<constructor-arg name="second" ref="second"/>
+	</bean>
+	
+	<bean id="first-list" class="a.First">
+		<property name="list">
+			<list value-type="java.lang.String">
+				<value>서울시</value>
+				<value>경기도</value>
+				<value>제주도</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="first-map" class="a.First">
+		<property name="map">
+			<map key-type="java.lang.Integer" value-type="java.lang.String">
+				<entry key="1" value="ONE"/>
+				<entry key="2" value="TWO"/>
+			</map>
+		</property>
+	</bean>
+</beans>

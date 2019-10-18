@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js/calculator.html</title>
+<script>
+var result; //값
+var operator;  //연산자
+var startNum; //숫자가 시작될경우 true, 이어질경우 false 
+var inputObj;
+function clear(){
+	result = 0;
+	operator = '=';
+	startNum = true;
+	inputObj.value = '';
+}
+function operate(op){	
+	if(inputObj.value == '0' ||  inputObj.length ==0){
+		return;
+	}	
+	switch(operator){	
+	case '=':
+		result = Number(inputObj.value); //처음
+		break;
+	case '+':
+		result += Number(inputObj.value);	
+		break;
+	case '-':
+	 	result -= Number(inputObj.value);	 	
+	 	break;
+	   
+	}
+	inputObj.value = result;	 
+ 	operator = op;	
+ 	startNum = true;
+}
+
+//dom트리가 완성될때까지 기다린다. load이벤트감시
+window.addEventListener("load", function(){	
+	
+	//dom에서 button객체들 찾기
+	var btArr = document.querySelectorAll("div.nums>button");
+	inputObj = document.querySelector("input[type=text]");
+	clear();
+	for(var i=0; i<btArr.length; i++){
+		(function(j){
+		  var btNumObj = btArr[j];
+		  btNumObj.addEventListener("click", function(){
+		    if(startNum){		
+			  inputObj.value = btNumObj.innerHTML;
+			  startNum = false; 
+			}else{				
+			  inputObj.value += btNumObj.innerHTML;				
+			}	
+		  });
+		})(i);		
+	}
+	var plusObj = document.querySelector("#plus");
+	plusObj.addEventListener("click", function(){
+		operate('+');
+	});
+	var minusObj = document.querySelector("#minus");
+	minusObj.addEventListener("click", function(){
+		operate('-');
+	});
+	var equalObj = document.querySelector("#equal");
+	equalObj.addEventListener("click", function(){
+		operate('=');
+	});
+	var clearObj = document.querySelector("#clear");
+	clearObj.addEventListener("click", clear);
+});
+</script>
+</head>
+<body>
+<input type="text"><br>
+<div class="nums">
+ <button>1</button> <button>2</button> <button>3</button> <br>
+ <button>4</button><button>5</button><button>6</button> <br>
+ <button>7</button> <button>8</button> <button>9</button> <br>
+ <button>0</button>
+</div>
+
+<button id="plus">+</button>&nbsp;&nbsp;<button id="minus">-</button>&nbsp;&nbsp;
+<button id="equal">=</button>&nbsp;&nbsp;
+<button id="clear">CLEAR</button>
+</body>
+</html>

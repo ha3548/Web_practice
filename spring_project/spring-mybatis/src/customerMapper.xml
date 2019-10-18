@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.vo.Customer"><!-- 구별해주는 이름일 뿐이다 -->
+<resultMap id="customerResultMap" type="Customer" autoMapping="true">
+  <id property="id" column="id" /><!-- pk에 대한 매핑 -->
+  <!-- <result property="name" column="name"/> 일반컬럼에 대한 매핑 -->
+  
+  <association property="post" javaType="com.my.vo.Post" autoMapping="true">
+    <id property="buildingno" column="buildingno"/>
+    <!-- <result property="zipcode" column="zipcode"/> -->
+  </association>
+</resultMap>
+<!--   <select id="selectBlog" resultType="Blog">
+    select * from Blog where id = #{id}
+  </select> -->
+<!--   <update id="updateName" parameterType="java.lang.String">
+  	#{}와 '?'는 같은뜻
+    UPDATE customer SET name='바티스1' WHERE id=#{aaa}
+  </update> -->
+  <update id="updateName" parameterType="java.lang.String">
+  	<!-- #{}와 '?'는 같은뜻 -->
+    UPDATE customer SET name=#{name} WHERE id=#{id}
+  </update>
+  <insert id="insert" parameterType="Customer">
+  	INSERT INTO customer(id, pwd, name, addr) 
+  	VALUES ( #{id}, #{pwd}, #{name}, #{addr})
+  	<!-- getter메소드 호출과 같은효과,
+  	 SQL과 JAVA소스코드를 매핑해주는 매핑용 라이브러리 -->
+  </insert>
+  <delete id="delete" parameterType="String">
+    DELETE FROM customer WHERE id=#{id}
+  </delete>
+  <select id="selectById" parameterType="String" resultType="Customer">
+  <!-- parameterType="java.lang.String" "String" "string" 모두같다-->
+    SELECT * FROM customer where id = #{id}
+  </select>
+  <select id="selectByCount" resultType="Integer">
+    SELECT count(*) FROM customer
+  </select>
+  <select id="selectGroup" resultType="java.util.HashMap"><!-- "map"과 같다 -->
+  	SELECT count(*) c1, count(*)/2 c2
+  	FROM customer
+  </select>
+  <select id="selectAll" resultType="Customer">
+  	SELECT * FROM customer
+  </select>
+  <!-- id속성은 절대 중복되면 안된다!! -->
+  <select id="selectZipcodeById" parameterType="String" resultMap="customerResultMap">
+  	SELECT *
+    FROM customer c join post p
+    ON c.buildingno = p.buildingno
+    WHERE id=#{id}
+  </select>
+</mapper>

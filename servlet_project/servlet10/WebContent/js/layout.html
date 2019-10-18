@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>layout.html</title>
+<style>
+header>h1 {
+  text-align: center;
+}
+header>nav>ul>li { 
+  display:inline-block;
+  margin: 10px;
+}
+header>nav>ul>li>a{ /*밑줄제거*/
+  text-decoration: none;
+}
+header>nav>ul>li>a:hover{
+  background-color: lightgray;
+  font-weight:bold;
+}
+section{
+  width:100%;
+  height: 650px;
+  /* height:50%; */
+}
+article{
+ /*display: inline-block;*/
+ /* float:left; */
+ border:1px solid;
+ /* width:300px; */
+ width:80%;
+ height:50%;
+ overflow: auto;
+}
+aside{
+  border:1px solid;
+  background-color: lightgray;
+  /*width: 200px;*/
+  width: 20%;
+  height: 30%;
+  /*display: inline-block;*/
+  float:right;
+}
+section>div {
+  float: left;
+  width: 70%;
+  height: 100%
+}
+footer {
+  background-color: gray;
+  color: white;
+  text-align: center;
+  margin-top: 10px; /*간격*/
+  padding: 15px; /*안쪽여백*/
+}
+
+</style>
+<script>
+window.addEventListener("load", function(){
+	var menuArr = document.querySelectorAll("header>nav>ul>li>a");
+	for(var i=0; i<menuArr.length;i++) {
+		(function(j){
+			var menuObj = menuArr[i];
+			menuObj.addEventListener("click", function(e){
+
+				//menuObj.href값에 해당 URL을 요청해서 결과를 응답받은 후
+				//응답내용을 section영역에 보여준다.
+				var url = menuObj.href;
+				//AJAX기술을 위한 XMLHttpRequest객체 생성
+				var xhr = new XMLHttpRequest();
+				
+				xhr.addEventListener("readystatechange", function(){
+					console.log(xhr.status);
+					if(xhr.status==200) {//http status code:200(정상응답)인 경우
+						var responseText=xhr.responseText;//응답내용
+						//console.log("success: " + responseText);
+						
+						//DOM트리에서 section객체찾기
+						//section객체.innerHTML = responseText;
+						if(menuObj.innerHTML=="로그인"){
+							var article = document.querySelector("article");
+							article.innerHTML = responseText;
+						} else if(menuObj.innerHTML=="가입") {
+							var article2 = document.querySelector("article:nth-child(2)");
+							article2.innerHTML = responseText;
+						}
+					}
+				});
+				
+				xhr.open('GET',url);//요청(소켓열기)
+				xhr.send();//요청시 전달데이터 송신
+				
+				e.preventDefault();//기본이벤트핸들러 막기
+				e.stopPropagation();//이벤트전달 중지
+			});
+		})(i);
+	}
+});
+</script>
+</head>
+<body>
+<!-- <div>HEADER</div>
+<div>SECTION</div>
+<div>FOOTER</div> --> <!-- 시멘틱태그: 의미만 담고있음 -->
+
+<header style="background-color: pink; border: 1px solid">
+	<h1>KITRI</h1>
+	<nav style="background-color: white;">
+		<ul>
+			<li><a href="#">게시판</a></li>
+			<li><a href="#">공지사항</a></li>
+			<li><a href="login.html">로그인</a></li>
+			<li><a href="join.html">가입</a></li>
+		</ul>
+	</nav>
+</header>
+
+<section>
+  <div>
+	<article> 
+	내용1<br>  내용1<br>
+	내용1<br>  내용1<br>
+	내용1<br>  내용1<br>
+	내용1<br>  내용1<br>
+	내용1<br>  내용1<br>
+	내용1<br>  내용1<br>
+	내용1<br>  내용1<br>  
+	</article>
+	<article>내용2</article>
+  </div>
+	<aside>광고</aside>
+</section>
+
+<footer>
+주소: 서울시 구린디지털단지
+연락처: 02-869-9999
+</footer>
+</body>
+</html>
